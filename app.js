@@ -3,7 +3,10 @@ class Personas{
     this.vida = stats[0];
     this.ataque = stats[1];
     this.defensa = stats[2];
-}}
+    }
+  
+    
+}
 
 function generarStats(){
 let statsEnemigos = [
@@ -55,11 +58,27 @@ function crearAliado() {
     return aliado;
 }
 
-function combate(){
-   let aliado = crearAliado();
-   let enemigos = crearEnemigos();
-   let i = 0;
-   while(aliado.vida > 0 || enemigos.length > 0 || i <=10){
-       
-   }
+function enemigoTarget(array){
+ 
+    let enemigoTarget = array.sort((a, b) => b.vida - a.vida);
+   
+    return enemigoTarget;
 }
+
+
+let aliado = crearAliado();
+let enemigos =enemigoTarget(crearEnemigos());
+let id = 0;
+console.log(enemigos); 
+for(let i = 0; i<=10; i++){
+  if(id > 4){
+    id = 0
+  }
+  enemigos[id].vida -= aliado.ataque + enemigos[id].defensa;
+   console.log(enemigos); 
+        
+  id++;  
+    }
+   
+
+
