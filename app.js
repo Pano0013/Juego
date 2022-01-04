@@ -65,20 +65,57 @@ function enemigoTarget(array){
     return enemigoTarget;
 }
 
+function ataqueAliado(aliado, enemigo) {
+  enemigoTarget(enemigo);
+  for (let i = 0; i < enemigo.length; i++) {
+    console.log("Vida de enemigo " + (i + 1) + ": " + enemigo[i].vida);
+  }
+  let dañote = aliado.ataque - enemigo[0].defensa;
+  if (dañote < 0) {
+    dañote = 0;
+  }
+  console.log("Le hiciste " + dañote + " de daño al enemigo con mas vida!");
+  return enemigo[0].vida - dañote;
+}
+
+function ataqueEnemigo(aliado, enemigos) {
+  let dañote = enemigos[0].ataque - aliado.defensa;
+  if (dañote < 0) {
+    dañote = 0;
+  }
+  console.log("Te hicieron " + dañote + " de daño");
+  return aliado.vida - dañote;
+}
+
+function Rondas(aliado, enemigos) {
+  for(let i = 0; i < 10; i++) {
+    let enemigosAtacados = ataqueAliado( aliado, enemigos);
+    enemigos[0].vida = enemigosAtacados;
+    let aliadoAtacado = ataqueEnemigo(aliado, enemigos);
+    console.log("Tu vida actual es: " + aliadoAtacado);
+    aliado.vida = aliadoAtacado;
+    if (aliadoAtacado === 0) {
+      console.log("Perdiste");
+      return;
+    }
+    console.log("===============================================");
+    if(enemigos[enemigos.length-1].vida === 0) {
+      enemigos.pop();
+    }
+    if(enemigos.length === 0) {
+      console.log("Has derrotado a todos los enemigos con una vida restante de: "+aliadoAtacado);
+      return;
+    }
+    }
+  console.log("Te quedaste sin rondas");
+  }
+
+
+
+   
 
 let aliado = crearAliado();
 let enemigos =enemigoTarget(crearEnemigos());
-let id = 0;
-console.log(enemigos); 
-for(let i = 0; i<=10; i++){
-  if(id > 4){
-    id = 0
-  }
-  enemigos[id].vida -= aliado.ataque + enemigos[id].defensa;
-   console.log(enemigos); 
-        
-  id++;  
-    }
-   
 
+Rondas(aliado, enemigos);
 
