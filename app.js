@@ -60,9 +60,6 @@ function crearAliado() {
 
 function enemigoTarget(array){
  
-    let enemigoTarget = array.sort((a, b) => b.vida - a.vida);
-   
-    return enemigoTarget;
 }
 
 function ataqueAliado(aliado, enemigo) {
@@ -117,5 +114,5 @@ function Rondas(aliado, enemigos) {
 let aliado = crearAliado();
 let enemigos =enemigoTarget(crearEnemigos());
 
-Rondas(aliado, enemigos);
+enemigoTarget(enemigos);
 
