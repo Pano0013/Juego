@@ -58,8 +58,21 @@ function crearAliado() {
     return aliado;
 }
 
-function enemigoTarget(array){
- 
+function enemigoTarget(arr){
+
+ var len = arr.length;
+
+ for (var i = 0; i < len; i++) {
+   for (var j = 0; j < len - i - 1; j++) {
+     if (arr[j].vida < arr[j + 1].vida) {
+       var temp = arr[j];
+       arr[j] = arr[j + 1];
+       arr[j + 1] = temp;
+     }
+   }
+ }
+ return arr;
+
 }
 
 function ataqueAliado(aliado, enemigo) {
@@ -76,7 +89,7 @@ function ataqueAliado(aliado, enemigo) {
 }
 
 function ataqueEnemigo(aliado, enemigos) {
-  let dañote = enemigos[0].ataque - aliado.defensa;
+  let dañote = enemigos[Math.floor(Math.random() * (enemigos.length-1))].ataque - aliado.defensa;
   if (dañote < 0) {
     dañote = 0;
   }
@@ -114,5 +127,5 @@ function Rondas(aliado, enemigos) {
 let aliado = crearAliado();
 let enemigos =enemigoTarget(crearEnemigos());
 
-enemigoTarget(enemigos);
+Rondas(aliado, enemigos);
 
